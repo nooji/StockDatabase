@@ -102,8 +102,7 @@ public class TestStore {
 			for(int i = 1; i <= 50; i++){
 				temp.enqueue(i);
 			}
-			lostCustomerDay += (100-customerNum);
-		
+			lostCustomerDay += (customerNum-50);
 		}
 		return temp;
 	}
@@ -190,19 +189,19 @@ public class TestStore {
 		}
 	}
 	private void printDay(){
-		System.out.println("Customers Lost on " + date + "				: " + lostCustomerDay);
-		System.out.println("Cheese wasted					: " + wasteCheese);
-		System.out.println("Bun wasted						: " + wasteBun);
-		System.out.println("Patty wasted					: " + wastePatty);
-		System.out.println("Lettuce wasted					: " + wasteLettuce);
-		System.out.println("Tomato wasted					: " + wasteTomato);
-		System.out.println("Onion wasted					: " + wasteOnion);
-		System.out.println(menu.peekItem(0) + " ordered					: " + countItemOne);
-		System.out.println(menu.peekItem(1) + " ordered				: " + countItemTwo);
-		System.out.println(menu.peekItem(2) + " ordered				: " + countItemThree);
-		System.out.println(menu.peekItem(3) + " ordered				: " + countItemFour);
-		System.out.println(menu.peekItem(4) + " ordered		: " + countItemFive);
-		System.out.println(menu.peekItem(5) + " ordered			: " + countItemSix);
+		System.out.println("Customers Lost on " + date + "		: " + lostCustomerDay);
+		System.out.println("Cheese wasted			: " + wasteCheese);
+		System.out.println("Bun wasted			: " + wasteBun);
+		System.out.println("Patty wasted			: " + wastePatty);
+		System.out.println("Lettuce wasted			: " + wasteLettuce);
+		System.out.println("Tomato wasted			: " + wasteTomato);
+		System.out.println("Onion wasted			: " + wasteOnion);
+		System.out.println(menu.peekItem(0) + " ordered			: " + countItemOne);
+		System.out.println(menu.peekItem(1) + " ordered		: " + countItemTwo);
+		System.out.println(menu.peekItem(2) + " ordered		: " + countItemThree);
+		System.out.println(menu.peekItem(3) + " ordered		: " + countItemFour);
+		System.out.println(menu.peekItem(4) + " ordered	: " + countItemFive);
+		System.out.println(menu.peekItem(5) + " ordered	: " + countItemSix);
 		System.out.println();
 	}
 	public void printMonth(){
