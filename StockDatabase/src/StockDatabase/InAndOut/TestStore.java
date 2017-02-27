@@ -109,7 +109,8 @@ public class TestStore {
 	}
 	
 	private void restock(){
-		int temp = rand.nextInt(1000)+700;
+		int temp = rand.nextInt(301)+700;
+		System.out.println("***Restock " + temp + " per item***");
 		for(int i =0; i < temp;i++ ){
 			cheese.push(new Ingredient(2));
 			bun.push(new Ingredient(5));
@@ -149,6 +150,7 @@ public class TestStore {
 			customer.clear();
 		}
 		reOrderRun();
+		passDay();
 		tossExpire();
 		totalLostCustomerDay += lostCustomerDay;
 		totalCountItemOne+= countItemOne;
@@ -167,20 +169,40 @@ public class TestStore {
 		date+=1;
 
 	}
+	private void passDay(){
+		for(int i = 0; i < cheese.getBag().size(); i++){
+			cheese.getBag().elementAt(i).dayPassed();
+		}
+		for(int i = 0; i < bun.getBag().size(); i++){
+			bun.getBag().elementAt(i).dayPassed();
+		}
+		for(int i = 0; i < patty.getBag().size(); i++){
+			patty.getBag().elementAt(i).dayPassed();
+		}
+		for(int i = 0; i < lettuce.getBag().size(); i++){
+			lettuce.getBag().elementAt(i).dayPassed();
+		}
+		for(int i = 0; i < tomato.getBag().size(); i++){
+			tomato.getBag().elementAt(i).dayPassed();
+		}
+		for(int i = 0; i < onion.getBag().size(); i++){
+			onion.getBag().elementAt(i).dayPassed();
+		}
+	}
 	private void printDay(){
-		System.out.println("Customers Lost on " + date + "		: " + lostCustomerDay);
-		System.out.println("Cheese wasted			: " + wasteCheese);
-		System.out.println("Bun wasted			: " + wasteBun);
-		System.out.println("Patty wasted			: " + wastePatty);
-		System.out.println("Lettuce wasted			: " + wasteLettuce);
-		System.out.println("Tomato wasted			: " + wasteTomato);
-		System.out.println("Onion wasted			: " + wasteOnion);
-		System.out.println(menu.peekItem(0) + " ordered			: " + countItemOne);
-		System.out.println(menu.peekItem(1) + " ordered		: " + countItemTwo);
-		System.out.println(menu.peekItem(2) + " ordered		: " + countItemThree);
-		System.out.println(menu.peekItem(3) + " ordered		: " + countItemFour);
-		System.out.println(menu.peekItem(4) + " ordered	: " + countItemFive);
-		System.out.println(menu.peekItem(5) + " ordered	: " + countItemSix);
+		System.out.println("Customers Lost on " + date + "				: " + lostCustomerDay);
+		System.out.println("Cheese wasted					: " + wasteCheese);
+		System.out.println("Bun wasted						: " + wasteBun);
+		System.out.println("Patty wasted					: " + wastePatty);
+		System.out.println("Lettuce wasted					: " + wasteLettuce);
+		System.out.println("Tomato wasted					: " + wasteTomato);
+		System.out.println("Onion wasted					: " + wasteOnion);
+		System.out.println(menu.peekItem(0) + " ordered					: " + countItemOne);
+		System.out.println(menu.peekItem(1) + " ordered				: " + countItemTwo);
+		System.out.println(menu.peekItem(2) + " ordered				: " + countItemThree);
+		System.out.println(menu.peekItem(3) + " ordered				: " + countItemFour);
+		System.out.println(menu.peekItem(4) + " ordered		: " + countItemFive);
+		System.out.println(menu.peekItem(5) + " ordered			: " + countItemSix);
 		System.out.println();
 	}
 	public void printMonth(){
@@ -232,8 +254,9 @@ public class TestStore {
 				break;
 			case "Vegan Burger":
 				if(!lettuce.isEmpty()&& !tomato.isEmpty() && !onion.isEmpty()){
-					Ingredient temp;
-					temp = lettuce.pop();
+					int temp;
+					temp = lettuce.peek().getDayLeft();
+					lettuce.pop();
 					if(!lettuce.isEmpty()){
 						lettuce.pop();
 						tomato.pop();
@@ -241,7 +264,7 @@ public class TestStore {
 						countItemThree+=1;
 					}
 					else{
-						lettuce.push(temp);
+						lettuce.push(new Ingredient(temp));
 						lostCustomerDay+=1;
 					}
 				}
@@ -314,27 +337,27 @@ public class TestStore {
 	}
 	
 	private void tossExpire(){
-		while(!cheese.isEmpty()&&cheese.peek().getDayLeft() == 0){
+		while(!cheese.isEmpty()&&cheese.peek().getDayLeft() <= 0){
 			cheese.pop();
 			wasteCheese+=1;
 		}
-		while(!bun.isEmpty()&&bun.peek().getDayLeft() == 0){
+		while(!bun.isEmpty()&&bun.peek().getDayLeft() <= 0){
 			bun.pop();
 			wasteBun+=1;
 		}
-		while(!patty.isEmpty()&&patty.peek().getDayLeft() == 0){
+		while(!patty.isEmpty()&&patty.peek().getDayLeft() <= 0){
 			patty.pop();
 			wastePatty+=1;
 		}
-		while(!lettuce.isEmpty() &&lettuce.peek().getDayLeft() == 0){
+		while(!lettuce.isEmpty() &&lettuce.peek().getDayLeft() <= 0){
 			lettuce.pop();
 			wasteLettuce+=1;
 		}
-		while(!tomato.isEmpty()&&tomato.peek().getDayLeft() == 0){
+		while(!tomato.isEmpty()&&tomato.peek().getDayLeft() <= 0){
 			tomato.pop();
 			wasteTomato+=1;
 		}
-		while(!onion.isEmpty()&&onion.peek().getDayLeft() == 0){
+		while(!onion.isEmpty()&&onion.peek().getDayLeft() <= 0){
 			onion.pop();
 			wasteOnion+=1;
 		}
